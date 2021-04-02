@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset=utf-8>
     <link rel=stylesheet href=index.css>
     <script src=index.js></script>
   </head>
   <body>
     <div class=dice-container>
-      <img class=dice width=128 src=images/1.png>
-      <img class=dice width=128 src=images/2.png>
-      <img class=dice width=128 src=images/3.png>
-      <img class=dice width=128 src=images/4.png>
-      <img class=dice width=128 src=images/5.png>
+      <img value=0 onclick=keep(this) class=dice draggable=false width=128 src=images/1.png>
+      <img value=1 onclick=keep(this) class=dice width=128 src=images/1.png>
+      <img value=2 onclick=keep(this) class=dice width=128 src=images/1.png>
+      <img value=3 onclick=keep(this) class=dice width=128 src=images/1.png>
+      <img value=4 onclick=keep(this) class=dice width=128 src=images/1.png>
     </div>
     <div>
       <button onclick=rollAll()>Slå alla tärningar</button>
