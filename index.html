@@ -6,6 +6,9 @@
     <script src=index.js></script>
   </head>
   <body>
+    <div>
+      Slag: <span id=throw-counter>0</span>
+    </div>
     <div class=dice-container>
       <img value=0 ondragstart="return false" onclick=keep(this) class=dice width=128 src=images/1.png>
       <img value=1 ondragstart="return false" onclick=keep(this) class=dice width=128 src=images/1.png>
@@ -14,7 +17,8 @@
       <img value=4 ondragstart="return false" onclick=keep(this) class=dice width=128 src=images/1.png>
     </div>
     <div>
-      <button onclick=rollAll()>Slå alla tärningar</button>
+      <button onclick=rollAll()>Slå tärningar</button>
+      <button onclick=nextPlayer()>Nästa spelare</button>
     </div>
   </body>
 </html>

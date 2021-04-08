@@ -12,6 +12,8 @@ function getDiceImages() {
 const state = {
     values: [1, 1, 1, 1, 1],
 
+    throwCounter: 0,
+
     kept: [false, false, false, false, false],
 
     toggleKept(dice) {
@@ -32,6 +34,14 @@ function updateVisuals(state) {
         }
         dice.src = `images/${state.values[diceNumber]}.png`
     })
+    document.getElementById('throw-counter').innerHTML = state.throwCounter
+}
+
+
+function nextPlayer() {
+    state.throwCounter = 0
+    state.kept = [false, false, false, false, false]
+    updateVisuals(state)
 }
 
 
@@ -43,8 +53,9 @@ function rollAll() {
         if (!state.kept[diceNumber]) {
             state.values[diceNumber] = Math.floor(Math.random() * 6) + 1
         }
-        updateVisuals(state)
     })
+    state.throwCounter += 1
+    updateVisuals(state)
 }
 
 
