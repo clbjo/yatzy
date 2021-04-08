@@ -10,6 +10,8 @@ function getDiceImages() {
 
 
 const state = {
+    values: [1, 1, 1, 1, 1],
+
     kept: [false, false, false, false, false],
 
     toggleKept(dice) {
@@ -22,23 +24,26 @@ const state = {
 
 function updateVisuals(state) {
     getDiceImages().forEach(dice => {
-        value = getValue(dice)
-        if (state.kept[value]) {
+        diceNumber = getValue(dice)
+        if (state.kept[diceNumber]) {
             dice.classList.add('kept')
         } else {
             dice.classList.remove('kept')
         }
+        dice.src = `images/${state.values[diceNumber]}.png`
     })
 }
 
 
 function rollAll() {
     getDiceImages().forEach(image => {
-        value = getValue(image)
-        if (!state.kept[value]) {
-            result = Math.floor(Math.random() * 6) + 1
-            image.src = `images/${result}.png`
+        // all the dice images have a value corresponding to
+        // their index in the state arrays
+        diceNumber = getValue(image)
+        if (!state.kept[diceNumber]) {
+            state.values[diceNumber] = Math.floor(Math.random() * 6) + 1
         }
+        updateVisuals(state)
     })
 }
 
