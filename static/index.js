@@ -63,3 +63,12 @@ function keep(dice) {
     state.toggleKept(dice)
 }
 
+
+//-------------------- SocketIO --------------------// 
+
+
+var socket = io();
+socket.on('connect', function() {
+    socket.emit('my event', state);
+});
+
