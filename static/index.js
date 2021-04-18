@@ -32,7 +32,7 @@ function updateVisuals(state) {
         } else {
             dice.classList.remove('kept')
         }
-        dice.src = `images/${state.values[diceNumber]}.png`
+        dice.src = `static/images/${state.values[diceNumber]}.png`
     })
     document.getElementById('throw-counter').innerHTML = state.throwCounter
 }
