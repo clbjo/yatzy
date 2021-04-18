@@ -10,7 +10,7 @@ socketio = SocketIO(app)
 @app.route('/')
 @app.route('/index')
 def index():
-    return 'Hello, World!'
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
