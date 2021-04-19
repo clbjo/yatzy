@@ -19,9 +19,9 @@ def index():
 #-------------------- SocketIO --------------------#
 
 
-@socketio.on('my event')
-def handle_message(data):
-    print('received message: ' + str(data))
+@socketio.on('request id')
+def handle_message():
+    return 1
 
 
 #-------------------- Startup --------------------#

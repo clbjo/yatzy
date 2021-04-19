@@ -68,7 +68,10 @@ function keep(dice) {
 
 
 var socket = io();
-socket.on('connect', function() {
-    socket.emit('my event', state);
+
+socket.on('connect', () => {
+    socket.emit('request id', id => {
+        console.log(`my id is ${id}`)
+    });
 });
 
