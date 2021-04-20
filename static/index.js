@@ -9,7 +9,7 @@ function getDiceImages() {
 }
 
 
-const state = {
+let state = {
     values: [1, 1, 1, 1, 1],
 
     throwCounter: 0,
@@ -67,11 +67,15 @@ function keep(dice) {
 //-------------------- SocketIO --------------------// 
 
 
-var socket = io();
+const socket = io();
 
 socket.on('connect', () => {
-    socket.emit('request id', id => {
-        console.log(`my id is ${id}`)
-    });
+    socket.emit('greeting')
+    socket.emit('action', 'roll')
 });
+
+socket.on('update', newState => {
+    state = {...state, ...newState}
+    updateVisuals(state)
+})
 
