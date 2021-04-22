@@ -1,5 +1,8 @@
-function getValue(element) {
-    return parseInt(element.attributes['value'].value)
+const STATIC_URL = '/static'
+
+
+function getIndex(element) {
+    return parseInt(element.attributes['index'].value)
 }
 
 
@@ -17,7 +20,7 @@ let state = {
     kept: [false, false, false, false, false],
 
     toggleKept(dice) {
-        value = getValue(dice)
+        value = getIndex(dice)
         this.kept[value] = !this.kept[value]
         updateVisuals(this)
     },
@@ -26,13 +29,13 @@ let state = {
 
 function updateVisuals(state) {
     getDiceImages().forEach(dice => {
-        diceNumber = getValue(dice)
+        diceNumber = getIndex(dice)
         if (state.kept[diceNumber]) {
             dice.classList.add('kept')
         } else {
             dice.classList.remove('kept')
         }
-        dice.src = `static/images/${state.values[diceNumber]}.png`
+        dice.src = `${STATIC_URL}/images/${state.values[diceNumber]}.png`
     })
     document.getElementById('throw-counter').innerHTML = state.throwCounter
 }
@@ -49,7 +52,7 @@ function rollAll() {
     getDiceImages().forEach(image => {
         // all the dice images have a value corresponding to
         // their index in the state arrays
-        diceNumber = getValue(image)
+        diceNumber = getIndex(image)
         if (!state.kept[diceNumber]) {
             state.values[diceNumber] = Math.floor(Math.random() * 6) + 1
         }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel=stylesheet href="{{ url_for('static', filename='play.css') }}">
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" integrity="sha384-LzhRnpGmQP+lOvWruF/lgkcqD+WDVt9fU3H4BWmwP5u5LTmkUGafMcpZKNObVMLU" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='play.js') }}"></script>
+  </head>
+  <body>
+    <div>
+      Slag: <span id=throw-counter>0</span>
+    </div>
+    <div class=dice-container>
+      {% for data in image_data %}
+      <img
+        index="{{ data.index }}"
+        ondragstart="return false"
+        onclick=keep(this)
+        class=dice
+        width=128
+        src="{{ url_for('static', filename=data.filename) }}"
+      >
+      {% endfor %}
+    </div>
+    <div>
+      <button onclick=rollAll()>Slå tärningar</button>
+      <button onclick=nextPlayer()>Nästa spelare</button>
+    </div>
+  </body>
+</html>
