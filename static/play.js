@@ -1,4 +1,38 @@
-const STATIC_URL = '/static'
+const IMAGES_URL = '/static/images'
+
+
+//-------------------- SocketIO --------------------// 
+
+
+const socket = io();
+
+socket.on('connect', () => {
+    socket.emit('join', document.URL)
+});
+
+socket.on('update', newState => {
+    state = {...state, ...newState}
+    updateVisuals(state)
+})
+
+
+//-------------------- Interface --------------------// 
+
+
+function roll() {
+    socket.emit('roll')
+}
+
+function keep(index) {
+    socket.emit('keep', index)
+}
+
+function reset(index) {
+    socket.emit('reset')
+}
+
+
+//-------------------- Visuals --------------------// 
 
 
 function getIndex(element) {
@@ -12,21 +46,7 @@ function getDiceImages() {
 }
 
 
-let state = {
-    values: [1, 1, 1, 1, 1],
-
-    counter: 0,
-
-    kept: [false, false, false, false, false],
-
-    toggleKept(dice) {
-        value = getIndex(dice)
-        this.kept[value] = !this.kept[value]
-        updateVisuals(this)
-    },
-}
-
-
+let state = {}
 function updateVisuals(state) {
     getDiceImages().forEach(dice => {
         diceNumber = getIndex(dice)
@@ -35,53 +55,7 @@ function updateVisuals(state) {
         } else {
             dice.classList.remove('kept')
         }
-        dice.src = `${STATIC_URL}/images/${state.values[diceNumber]}.png`
+        dice.src = `${IMAGES_URL}/${state.values[diceNumber]}.png`
     })
-    document.getElementById('throw-counter').innerHTML = state.counter
+    document.getElementById('throw-counter').textContent = state.counter
 }
-
-
-function nextPlayer() {
-    state.counter = 0
-    state.kept = [false, false, false, false, false]
-    updateVisuals(state)
-}
-
-
-function rollAll() {
-    getDiceImages().forEach(image => {
-        // all the dice images have a value corresponding to
-        // their index in the state arrays
-        diceNumber = getIndex(image)
-        if (!state.kept[diceNumber]) {
-            state.values[diceNumber] = Math.floor(Math.random() * 6) + 1
-        }
-    })
-    state.counter += 1
-    updateVisuals(state)
-}
-
-
-function keep(dice) {
-    state.toggleKept(dice)
-}
-
-
-//-------------------- SocketIO --------------------// 
-
-
-// Emittable events
-const JOIN = 'join'
-const ACTION = 'action'
-
-const socket = io();
-
-socket.on('connect', () => {
-    socket.emit(JOIN, document.URL)
-});
-
-socket.on('update', newState => {
-    state = {...state, ...newState}
-    updateVisuals(state)
-})
-

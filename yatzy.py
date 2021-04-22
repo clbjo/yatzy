@@ -1,3 +1,4 @@
+from random import randint
 from urllib.parse import urlparse
 
 from flask import Flask, render_template, request
@@ -12,26 +13,29 @@ socketio = SocketIO(app)
 #-------------------- Game Logic --------------------#
 
 
-from random import randint
+def roll(*, state):
+    '''Returns the new state after rolling the unkept dice.'''
+    values = [randint(1,6) if not keep else x for x, keep in zip(state['values'], state['kept'])]
+    counter = state['counter'] + 1
+    return {**state, 'values': values, 'counter': counter}
 
 
-def roll():
-    values = [randint(1,6) if not keep else x for x, keep in zip(values, kept)]
-    state.throwCounter += 1
+def keep(index, *, state):
+    kept = state['kept'].copy()
+    kept[index] = not kept[index]
+    return {**state, 'kept': kept}
+
+
+def reset(*, state):
+    counter = 0
+    kept = [False, False, False, False, False]
+    return {**state, 'counter': counter, 'kept': kept }
 
 
 #-------------------- Web Pages --------------------#
 
 
 IMAGE_FOLDER = 'images'
-
-
-# The keys are the socketio room names
-states = {'asdf': {
-    'values': [1,1,1,1,2],
-    'counter': 0,
-    'kept': [False, False, False, False, False] 
-}}
 
 
 @app.route('/')
@@ -55,6 +59,14 @@ def play(room):
 #-------------------- SocketIO --------------------#
 
 
+# The keys are the socketio room names
+states = {'asdf': {
+    'values': [1,5,1,5,1],
+    'counter': 0,
+    'kept': [False, False, False, False, False] 
+}}
+
+
 # All sids are stored along with the room they belong to.
 rooms = {}
 
@@ -73,13 +85,30 @@ def join(url):
     rooms[request.sid] = room
 
 
-@socketio.event
-def action(act):
-    print(act)
-    if act == 'roll':
-        pass
-        #roll()
-    socketio.emit(UPDATE, states['asdf'], room=rooms[request.sid])
+def do_action(f, *args, **kwargs):
+    '''Contains logic common to all actions
+
+    Grabs the current sid's room and calls the action f with
+    the correct state, updates the state, and emits an update.
+    '''
+    room = rooms[request.sid]
+    states[room] = f(*args, state=states[room], **kwargs)
+    socketio.emit(UPDATE, states[room], room=room)
+
+
+@socketio.on('roll')
+def do_roll():
+    do_action(roll)
+
+
+@socketio.on('keep')
+def do_keep(index):
+    do_action(keep, index)
+
+
+@socketio.on('reset')
+def do_reset():
+    do_action(reset)
 
 
 #-------------------- Startup --------------------#

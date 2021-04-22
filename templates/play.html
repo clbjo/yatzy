@@ -16,7 +16,7 @@
       <img
         index="{{ data.index }}"
         ondragstart="return false"
-        onclick=keep(this)
+        onclick="keep({{ data.index }})"
         class=dice
         width=128
         src="{{ url_for('static', filename=data.filename) }}"
@@ -24,8 +24,8 @@
       {% endfor %}
     </div>
     <div>
-      <button onclick=rollAll()>Slå tärningar</button>
-      <button onclick=nextPlayer()>Nästa spelare</button>
+      <button onclick=roll()>Slå tärningar</button>
+      <button onclick=reset()>Nästa spelare</button>
     </div>
   </body>
 </html>
