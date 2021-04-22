@@ -55,7 +55,11 @@ def play(room):
 #-------------------- SocketIO --------------------#
 
 
-#Emittable events
+# All sids are stored along with the room they belong to.
+rooms = {}
+
+
+# Emittable events
 UPDATE = 'update'
 
 
@@ -66,6 +70,7 @@ def join(url):
     '''
     room = urlparse(url).path.split('/')[-1]
     join_room(room)
+    rooms[request.sid] = room
 
 
 @socketio.event
@@ -74,7 +79,7 @@ def action(act):
     if act == 'roll':
         pass
         #roll()
-    socketio.emit(UPDATE, states['asdf'])
+    socketio.emit(UPDATE, states['asdf'], room=rooms[request.sid])
 
 
 #-------------------- Startup --------------------#
