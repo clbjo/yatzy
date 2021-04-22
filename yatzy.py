@@ -1,8 +1,7 @@
 from urllib.parse import urlparse
 
-
 from flask import Flask, render_template, request
-from flask_socketio import SocketIO
+from flask_socketio import SocketIO, join_room
 
 
 app = Flask(__name__)
@@ -28,7 +27,11 @@ IMAGE_FOLDER = 'images'
 
 
 # The keys are the socketio room names
-states = {'asdf': {'values': [1,1,1,1,2]}}
+states = {'asdf': {
+    'values': [1,1,1,1,2],
+    'counter': 0,
+    'kept': [False, False, False, False, False] 
+}}
 
 
 @app.route('/')
@@ -57,8 +60,12 @@ UPDATE = 'update'
 
 
 @socketio.event
-def greeting(room):
-    print(room)
+def join(url):
+    '''
+    url: The url from which the client made the connection contains the room for the socket.
+    '''
+    room = urlparse(url).path.split('/')[-1]
+    join_room(room)
 
 
 @socketio.event

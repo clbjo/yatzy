@@ -15,7 +15,7 @@ function getDiceImages() {
 let state = {
     values: [1, 1, 1, 1, 1],
 
-    throwCounter: 0,
+    counter: 0,
 
     kept: [false, false, false, false, false],
 
@@ -37,12 +37,12 @@ function updateVisuals(state) {
         }
         dice.src = `${STATIC_URL}/images/${state.values[diceNumber]}.png`
     })
-    document.getElementById('throw-counter').innerHTML = state.throwCounter
+    document.getElementById('throw-counter').innerHTML = state.counter
 }
 
 
 function nextPlayer() {
-    state.throwCounter = 0
+    state.counter = 0
     state.kept = [false, false, false, false, false]
     updateVisuals(state)
 }
@@ -57,7 +57,7 @@ function rollAll() {
             state.values[diceNumber] = Math.floor(Math.random() * 6) + 1
         }
     })
-    state.throwCounter += 1
+    state.counter += 1
     updateVisuals(state)
 }
 
@@ -70,11 +70,14 @@ function keep(dice) {
 //-------------------- SocketIO --------------------// 
 
 
+// Emittable events
+const JOIN = 'join'
+const ACTION = 'action'
+
 const socket = io();
 
 socket.on('connect', () => {
-    socket.emit('greeting')
-    socket.emit('action', 'roll')
+    socket.emit(JOIN, document.URL)
 });
 
 socket.on('update', newState => {
