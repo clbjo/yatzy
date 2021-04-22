@@ -17,7 +17,7 @@
         index="{{ data.index }}"
         ondragstart="return false"
         onclick="keep({{ data.index }})"
-        class=dice
+        class="dice {{ data.kept }}"
         width=128
         src="{{ url_for('static', filename=data.filename) }}"
       >

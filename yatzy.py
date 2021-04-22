@@ -47,11 +47,13 @@ def index():
 
 @app.route('/play/<room>')
 def play(room):
+    state = states[room]
     image_data = []
-    for i, value in enumerate(states[room]['values']):
+    for i, value, kept in zip(range(len(state['values'])), state['values'], state['kept']):
         image_data.append({
             'index': i,
-            'filename': f'{IMAGE_FOLDER}/{value}.png'
+            'filename': f'{IMAGE_FOLDER}/{value}.png',
+            'kept': 'kept' if kept else ''
         })
     return render_template('play.html', image_data=image_data)
 
