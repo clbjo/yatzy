@@ -41,7 +41,6 @@ IMAGE_FOLDER = 'images'
 @app.route('/')
 @app.route('/index')
 def index():
-    #TODO flytta favicon till index.html
     return render_template('index.html')
 
 
@@ -55,7 +54,7 @@ def play(room):
             'filename': f'{IMAGE_FOLDER}/{value}.png',
             'kept': 'kept' if kept else ''
         })
-    return render_template('play.html', image_data=image_data)
+    return render_template('play.html', image_data=image_data, counter=state['counter'])
 
 
 #-------------------- SocketIO --------------------#
