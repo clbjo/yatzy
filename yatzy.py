@@ -35,13 +35,29 @@ def reset(*, state):
 #-------------------- Web Pages --------------------#
 
 
+# The keys are the socketio room names that are also 
+# used in the url as the <room> in the route play
+states = {
+    'asdf': {
+        'values': [1,5,1,5,1],
+        'counter': 0,
+        'kept': [False, False, False, False, False] 
+    }, '12345': {
+        'values': [1,2,3,4,5],
+        'counter': 0,
+        'kept': [False, False, False, False, False]
+    }
+}
+
+
 IMAGE_FOLDER = 'images'
 
 
 @app.route('/index')
 @app.route('/')
 def index():
-    return render_template('index.html')
+    rooms = states.keys()
+    return render_template('index.html', rooms=rooms)
 
 
 @app.route('/play/<room>')
@@ -61,14 +77,6 @@ def play(room):
 
 
 #-------------------- SocketIO --------------------#
-
-
-# The keys are the socketio room names
-states = {'asdf': {
-    'values': [1,5,1,5,1],
-    'counter': 0,
-    'kept': [False, False, False, False, False] 
-}}
 
 
 # All sids are stored along with the room they belong to.

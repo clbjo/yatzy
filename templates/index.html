@@ -6,7 +6,13 @@
   </head>
   <body>
     <div>
-      Hello world!...
+      <label for="rooms">Rum:</label>
+      <select id="rooms">
+        <option hidden disabled selected value>Välj ett rum</option>
+        {% for room in rooms %}
+        <option value="{{ room }}">{{ room }}</option>
+        {% endfor %}
+      </select>
     </div>
   </body>
 </html>
