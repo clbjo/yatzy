@@ -1,7 +1,7 @@
 from random import randint
 from urllib.parse import urlparse
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 from flask_socketio import SocketIO, join_room
 
 
@@ -38,15 +38,18 @@ def reset(*, state):
 IMAGE_FOLDER = 'images'
 
 
-@app.route('/')
 @app.route('/index')
+@app.route('/')
 def index():
     return render_template('index.html')
 
 
 @app.route('/play/<room>')
 def play(room):
-    state = states[room]
+    try:
+        state = states[room]
+    except KeyError:
+        return redirect(url_for('index'), 302)
     image_data = []
     for i, value, kept in zip(range(len(state['values'])), state['values'], state['kept']):
         image_data.append({
