@@ -1,35 +1,14 @@
-from random import randint
 from urllib.parse import urlparse
 
 from flask import Flask, render_template, request, url_for, redirect
 from flask_socketio import SocketIO, join_room
 
+from game import roll, keep, reset
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'sercrutkee'
 socketio = SocketIO(app)
-
-
-#-------------------- Game Logic --------------------#
-
-
-def roll(*, state):
-    '''Returns the new state after rolling the unkept dice.'''
-    values = [randint(1,6) if not keep else x for x, keep in zip(state['values'], state['kept'])]
-    counter = state['counter'] + 1
-    return {**state, 'values': values, 'counter': counter}
-
-
-def keep(index, *, state):
-    kept = state['kept'].copy()
-    kept[index] = not kept[index]
-    return {**state, 'kept': kept}
-
-
-def reset(*, state):
-    counter = 0
-    kept = [False, False, False, False, False]
-    return {**state, 'counter': counter, 'kept': kept }
 
 
 #-------------------- Web Pages --------------------#
