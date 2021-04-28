@@ -201,3 +201,7 @@ tags
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,macos,python
 
+# Created by https://www.toptal.com/developers/gitignore/api/pycharm
+# Edit at https://www.toptal.com/developers/gitignore?templates=pycharm
+
+.idea
