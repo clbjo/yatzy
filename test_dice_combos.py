@@ -17,3 +17,5 @@ class TestPair(unittest.TestCase):
         self.assertEqual(dice_combos.pair([1, 2, 3, 4, 5]), 0,
                          'score for missing combo was not 0')
 
+####github test####
+
