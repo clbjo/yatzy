@@ -1,3 +1,7 @@
-def pair(combo):
-    return 12
+def pair(dice):   # One list
+
+    return 100
+
+
+
 
