@@ -12,9 +12,9 @@ class TestNumber(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [1, 3, 6, 3, 6]
-        dice_combos.number(3, throw)
-        self.assertEqual(throw, [1, 3, 6, 3, 6],
+        dice = [1, 3, 6, 3, 6]
+        dice_combos.number(3, dice)
+        self.assertEqual(dice, [1, 3, 6, 3, 6],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -32,9 +32,9 @@ class TestPair(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [1, 3, 6, 3, 6]
-        dice_combos.pair(throw)
-        self.assertEqual(throw, [1, 3, 6, 3, 6],
+        dice = [1, 3, 6, 3, 6]
+        dice_combos.pair(dice)
+        self.assertEqual(dice, [1, 3, 6, 3, 6],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -50,9 +50,9 @@ class TestTwoPair(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [2, 3, 6, 2, 3]
-        dice_combos.two_pair(throw)
-        self.assertEqual(throw, [2, 3, 6, 2, 3],
+        dice = [2, 3, 6, 2, 3]
+        dice_combos.two_pair(dice)
+        self.assertEqual(dice, [2, 3, 6, 2, 3],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -70,9 +70,9 @@ class TestThreeOfAKind(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [1, 3, 6, 3, 3]
-        dice_combos.three_of_a_kind(throw)
-        self.assertEqual(throw, [1, 3, 6, 3, 3],
+        dice = [1, 3, 6, 3, 3]
+        dice_combos.three_of_a_kind(dice)
+        self.assertEqual(dice, [1, 3, 6, 3, 3],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -88,9 +88,9 @@ class TestFourOfAKind(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [3, 3, 6, 3, 3]
-        dice_combos.four_of_a_kind(throw)
-        self.assertEqual(throw, [3, 3, 6, 3, 3],
+        dice = [3, 3, 6, 3, 3]
+        dice_combos.four_of_a_kind(dice)
+        self.assertEqual(dice, [3, 3, 6, 3, 3],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -106,9 +106,9 @@ class TestSmallStraight(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [4, 2, 3, 1, 5]
-        dice_combos.small_straight(throw)
-        self.assertEqual(throw, [4, 2, 3, 1, 5],
+        dice = [4, 2, 3, 1, 5]
+        dice_combos.small_straight(dice)
+        self.assertEqual(dice, [4, 2, 3, 1, 5],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -124,9 +124,9 @@ class TestLargeStraight(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [4, 2, 3, 6, 5]
-        dice_combos.large_straight(throw)
-        self.assertEqual(throw, [4, 2, 3, 6, 5],
+        dice = [4, 2, 3, 6, 5]
+        dice_combos.large_straight(dice)
+        self.assertEqual(dice, [4, 2, 3, 6, 5],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -142,9 +142,9 @@ class TestFullHouse(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [1, 1, 2, 1, 2]
-        dice_combos.full_house(throw)
-        self.assertEqual(throw, [1, 1, 2, 1, 2],
+        dice = [1, 1, 2, 1, 2]
+        dice_combos.full_house(dice)
+        self.assertEqual(dice, [1, 1, 2, 1, 2],
                          'list of dice values was mutated')
 
     def test_missing(self):
@@ -160,9 +160,9 @@ class TestChance(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [6, 3, 4, 5, 6]
-        dice_combos.chance(throw)
-        self.assertEqual(throw, [6, 3, 4, 5, 6],
+        dice = [6, 3, 4, 5, 6]
+        dice_combos.chance(dice)
+        self.assertEqual(dice, [6, 3, 4, 5, 6],
                          'list of dice values was mutated')
 
 
@@ -174,9 +174,9 @@ class TestYatzy(unittest.TestCase):
                          'incorrect scoring')
 
     def test_immutable(self):
-        throw = [6, 6, 6, 6, 6]
-        dice_combos.yatzy(throw)
-        self.assertEqual(throw, [6, 6, 6, 6, 6],
+        dice = [6, 6, 6, 6, 6]
+        dice_combos.yatzy(dice)
+        self.assertEqual(dice, [6, 6, 6, 6, 6],
                          'list of dice values was mutated')
 
     def test_missing(self):
